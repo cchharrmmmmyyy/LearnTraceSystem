@@ -162,9 +162,9 @@ const AppConfig = {
     },
 
     api: {
-        baseURL: '',
+        baseURL: 'http://localhost:8080',
         timeout: 10000,
-        enableSync: false
+        enableSync: true
     }
 };
 

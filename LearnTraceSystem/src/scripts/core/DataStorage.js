@@ -31,7 +31,7 @@ class DataStorage {
 
         try {
             if (type === 'hover') {
-                await apiService.saveHoverData(sessionId, data);
+                await apiService.collectBehaviorData(sessionId, data);
             } else if (type === 'session') {
                 await apiService.saveSession(data);
             }
@@ -240,7 +240,7 @@ class DataStorage {
         store.sessions[sessionId].updated_at = now;
         store.sessions[sessionId].data.push(hoverRecord);
         const result = this.saveHoverData(store);
-        this.syncToBackend('hover', sessionId, store.sessions[sessionId].data);
+        this.syncToBackend('hover', sessionId, [hoverRecord]);
         return result;
     }
 

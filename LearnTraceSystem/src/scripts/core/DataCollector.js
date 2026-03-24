@@ -126,9 +126,17 @@ class DataCollector {
             return;
         }
 
+        const wordIdParts = this.currentWordId.split('-');
+        const paragraphId = parseInt(wordIdParts[0], 10);
+        const sentenceId = parseInt(wordIdParts[1], 10);
+        const sentenceIdStr = `${paragraphId}-${sentenceId}`;
+        const wordId = `${paragraphId}-${sentenceId}-${wordIdParts[2]}`;
+
         const record = {
             event_type: this.eventType,
-            word_id: this.currentWordId,
+            paragraph_id: paragraphId,
+            sentence_id: sentenceIdStr,
+            word_id: wordId,
             start_time: this.hoverStartTime,
             duration: duration
         };

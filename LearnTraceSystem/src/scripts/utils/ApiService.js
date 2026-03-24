@@ -115,6 +115,30 @@ class ApiService {
         }
     }
 
+    async collectBehaviorData(sessionId, events) {
+        if (!this.baseURL) {
+            console.warn('[ApiService] 未配置后端API地址，跳过采集');
+            return null;
+        }
+
+        try {
+            const url = `${this.getFullUrl('/api/behavior/collect')}?sessionId=${encodeURIComponent(sessionId)}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(events)
+            });
+            const result = await response.json();
+            console.log('[ApiService] 行为数据已采集到服务器');
+            return result;
+        } catch (error) {
+            console.error('[ApiService] 采集行为数据失败:', error);
+            return null;
+        }
+    }
+
     async getHoverData(sessionId) {
         if (!this.baseURL) {
             console.warn('[ApiService] 未配置后端API地址');
