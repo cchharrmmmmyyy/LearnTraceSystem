@@ -1,0 +1,25 @@
+<!--
+  导航栏组件
+  功能：全局导航栏
+  更新日期：2026-03-24
+-->
+
+<nav class="navbar">
+    <div class="navbar__brand">
+        <div class="navbar__logo">L</div>
+        <span class="navbar__title" data-i18n="navbar.title">LearnTraceSystem</span>
+    </div>
+
+    <div class="navbar__menu">
+        <a href="index.html" class="nav-link" data-page="index" data-i18n="navbar.dashboard">Dashboard</a>
+        <a href="analytic.html" class="nav-link" data-page="analytics" data-i18n="navbar.analytics">Analytics</a>
+        <a href="#" class="nav-link" data-i18n="navbar.courses">Courses</a>
+        <a href="#" class="nav-link" data-i18n="navbar.resources">Resources</a>
+    </div>
+
+    <div class="navbar__actions">
+        <button class="nav-icon-btn" title="搜索" aria-label="搜索">🔍</button>
+        <button class="nav-icon-btn" title="通知" aria-label="通知">🔔</button>
+        <div class="nav-avatar" title="用户中心" role="button" tabindex="0">U</div>
+    </div>
+</nav>

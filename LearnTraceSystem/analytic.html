@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTraceSystem - Analytics</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+    <!-- 导航栏容器 -->
+    <div id="navbar-container"></div>
+
+    <!-- 主内容区域 -->
+    <main class="analytic-main">
+        <!-- 开始屏幕 -->
+        <div class="start-screen" id="start-screen">
+            <div class="start-content">
+                <div class="start-content__icon">📖</div>
+                <h1 class="start-content__title">阅读分析</h1>
+                <p class="start-content__desc">专注于您的英语阅读练习</p>
+                <p class="start-content__tips">通过计时阅读提升阅读速度与理解能力</p>
+                <button id="start-read-btn" class="btn btn--primary">开始阅读</button>
+            </div>
+        </div>
+
+        <!-- 分析容器 -->
+        <div class="analytic-container" id="analytic-container" style="display: none;">
+            <!-- 阅读导航栏 -->
+            <div class="reading-navbar">
+                <div class="reading-navbar__left">
+                    <button class="sidebar-toggle" id="sidebar-toggle" title="收起边栏">
+                        <span class="sidebar-toggle__icon">◀</span>
+                    </button>
+                    <span class="reading-navbar__brand">LearnTrace</span>
+                </div>
+                <div class="reading-navbar__center">
+                    <h1 class="reading-navbar__title" id="reading-title">英语阅读练习</h1>
+                </div>
+                <div class="reading-navbar__right"></div>
+            </div>
+
+            <!-- 阅读内容区域 -->
+            <div class="reading-content-wrapper">
+                <!-- 侧边栏 -->
+                <aside class="sidebar" id="sidebar">
+                    <div class="sidebar__content">
+                        <!-- 计时面板 -->
+                        <div class="panel panel--active" id="timer-panel">
+                            <div class="timer-display">
+                                <div class="timer-value" id="timer">00:00</div>
+                            </div>
+                            <div class="session-info">
+                                <div class="info-value" id="sentence-count">1</div>
+                            </div>
+                            <div class="collector-panel">
+                                <div class="collector-panel__header">
+                                    <span class="collector-panel__title">鼠标采集</span>
+                                    <span class="collector-status collector-status--idle" id="collector-status">未开始</span>
+                                </div>
+                                <div class="collector-metrics">
+                                    <div class="collector-metric">
+                                        <span class="collector-metric__label">记录数</span>
+                                        <span class="collector-metric__value" id="collector-count">0</span>
+                                    </div>
+                                    <div class="collector-metric">
+                                        <span class="collector-metric__label">会话</span>
+                                        <span class="collector-metric__value collector-metric__value--session" id="collector-session">-</span>
+                                    </div>
+                                </div>
+                                <div class="collector-actions">
+                                    <button id="collector-toggle-btn" class="btn btn--card btn--primary">停止采集</button>
+                                    <button id="collector-reset-btn" class="btn btn--card btn--secondary">重置会话</button>
+                                    <button id="collector-export-btn" class="btn btn--card btn--secondary">导出 JSON</button>
+                                </div>
+                                <div class="collector-recent">
+                                    <div class="collector-recent__title">最近记录</div>
+                                    <pre class="collector-recent__list" id="collector-recent-list">暂无数据</pre>
+                                </div>
+                            </div>
+                            <button id="end-btn" class="btn btn--card btn--primary">结束</button>
+                        </div>
+
+                        <!-- 结果面板 -->
+                        <div class="panel panel--hidden" id="result-panel">
+                            <h3>阅读完成</h3>
+                            <div class="result-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">时长</span>
+                                    <span class="summary-value" id="total-time">00:00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">句子</span>
+                                    <span class="summary-value" id="total-sentences">1</span>
+                                </div>
+                            </div>
+                            <button id="restart-btn" class="btn btn--card btn--primary">重新开始</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- 阅读区域 -->
+                <section class="reading-area">
+                    <div class="reading-container">
+                        <div class="reading-content">
+                            <div class="sentence-display">
+                                <p id="sentence-text" class="sentence">Reading is an essential skill that opens doors to knowledge and understanding.</p>
+                            </div>
+                        </div>
+
+                        <div class="reading-controls">
+                            <button id="prev-btn" class="control-btn" disabled>
+                                <span>←</span>
+                                <span>上一句</span>
+                            </button>
+                            <button id="next-btn" class="control-btn">
+                                <span>下一句</span>
+                                <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚容器 -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="src/config/app.config.js"></script>
+    <script src="src/scripts/utils/utils.js"></script>
+    <script src="src/scripts/utils/ApiService.js"></script>
+    <script src="src/scripts/core/DataStorage.js"></script>
+    <script src="src/scripts/core/DataCollector.js"></script>
+    <script src="src/scripts/core/ComponentLoader.js"></script>
+    <script src="src/scripts/modules/App.js"></script>
+    <script src="src/scripts/modules/AdminManager.js"></script>
+    <script src="src/scripts/pages/AnalyticManager.js"></script>
+</body>
+</html>

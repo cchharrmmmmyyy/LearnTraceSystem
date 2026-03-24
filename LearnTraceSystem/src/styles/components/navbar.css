@@ -1,0 +1,174 @@
+/**
+ * 导航栏组件样式
+ * 功能：定义导航栏的视觉样式和交互状态
+ * 更新日期：2026-03-24
+ */
+
+/* 导航栏容器 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-3xl);
+    z-index: var(--z-fixed);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 导航栏品牌区域 */
+.navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.navbar__logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-purple));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+}
+
+.navbar__title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text-dark);
+    letter-spacing: -0.3px;
+}
+
+/* 导航栏菜单 */
+.navbar__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* 导航链接 */
+.nav-link {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-page);
+}
+
+.nav-link--active {
+    color: var(--color-accent-purple);
+    background-color: rgba(167, 139, 250, 0.1);
+}
+
+.nav-link--active::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background-color: var(--color-accent-purple);
+    border-radius: 2px;
+}
+
+/* 导航栏操作区域 */
+.navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* 导航图标按钮 */
+.nav-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-page);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-text-dark);
+    transition: all var(--transition-fast);
+    border: none;
+}
+
+.nav-icon-btn:hover {
+    background-color: var(--color-bg-card);
+    transform: translateY(-2px);
+}
+
+/* 导航头像 */
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-purple));
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+}
+
+.nav-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .navbar__title {
+        font-size: var(--font-size-md);
+    }
+
+    .navbar__menu {
+        gap: var(--spacing-xs);
+    }
+
+    .nav-link {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .navbar__actions {
+        gap: var(--spacing-sm);
+    }
+
+    .nav-icon-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar__menu {
+        display: none;
+    }
+}

@@ -1,0 +1,44 @@
+/**
+ * 主布局样式
+ * 功能：定义全局布局结构，包括导航栏、内容区域、页脚等
+ * 更新日期：2026-03-24
+ */
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--spacing-xl);
+    min-height: calc(100vh - var(--navbar-height));
+}
+
+.main-content--centered {
+    align-items: center;
+}
+
+/* 应用容器 */
+.app-container {
+    width: 100%;
+    max-width: var(--container-max-width);
+}
+
+/* 网格布局 */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+/* 响应式网格 */
+@media (max-width: 768px) {
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .grid-layout {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,42 @@
+/**
+ * 页脚组件样式
+ * 功能：定义页脚的视觉样式
+ * 更新日期：2026-03-24
+ */
+
+.page-footer {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-3xl);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.footer-info__separator {
+    opacity: 0.5;
+}
+
+.footer-info__version {
+    color: var(--color-accent-purple);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .page-footer {
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .footer-info {
+        font-size: var(--font-size-xs);
+        gap: var(--spacing-sm);
+    }
+}

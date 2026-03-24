@@ -1,0 +1,205 @@
+/**
+ * 卡片组件样式
+ * 功能：定义各类卡片的视觉样式
+ * 更新日期：2026-03-24
+ */
+
+/* 通用卡片 */
+.card {
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* 颜色卡片 */
+.card--color {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.card__color-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.card__color-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-normal);
+}
+
+.card--color-dark {
+    background-color: var(--color-primary-dark);
+}
+
+.card--color-dark .card__color-title {
+    color: var(--color-text-light);
+}
+
+.card--color-blue {
+    background-color: var(--color-primary-blue);
+}
+
+.card--color-blue .card__color-title,
+.card--color-blue .card__color-desc {
+    color: var(--color-text-light);
+}
+
+.card--color-light {
+    background-color: var(--color-bg-card);
+}
+
+/* 图标卡片 */
+.card--icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-md);
+}
+
+.card__icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-page);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all var(--transition-normal);
+}
+
+.card__icon-wrapper--blue {
+    background-color: rgba(63, 114, 175, 0.15);
+}
+
+.card__icon-wrapper--purple {
+    background-color: rgba(167, 139, 250, 0.15);
+}
+
+.card__icon-wrapper--orange {
+    background-color: rgba(249, 115, 22, 0.15);
+}
+
+.card--icon:hover .card__icon-wrapper {
+    transform: scale(1.1);
+}
+
+.card__title {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+/* 列表卡片 */
+.card--list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.card__accent-title {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--color-accent-purple);
+}
+
+.card__accent-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+/* 列表项 */
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-page);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.list-item:hover {
+    background-color: var(--color-bg-card);
+}
+
+.list-item__left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.circle-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-primary-blue);
+}
+
+.circle-icon--purple {
+    background-color: var(--color-accent-purple);
+}
+
+.list-item__text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+}
+
+.list-item__arrow {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+/* 进度条 */
+.progress-container {
+    margin-top: var(--spacing-sm);
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+}
+
+.progress-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.progress-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-bg-page);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary-blue), var(--color-accent-purple));
+    border-radius: 4px;
+    transition: width var(--transition-normal);
+}

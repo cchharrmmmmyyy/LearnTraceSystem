@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTraceSystem - Dashboard</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+    <!-- 导航栏容器 -->
+    <div id="navbar-container"></div>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="app-container">
+            <header class="header">
+                <h1 data-i18n="dashboard.pageTitle">LearnTraceSystem</h1>
+                <div class="header__actions">
+                    <button class="nav-icon-btn" aria-label="搜索">🔍</button>
+                    <div class="nav-avatar" role="button" tabindex="0">U</div>
+                </div>
+            </header>
+
+            <!-- 卡片网格 -->
+            <div class="grid-layout">
+                <!-- 颜色卡片 -->
+                <div class="card card--color card--color-dark">
+                    <h2 class="card__color-title">#112d4e</h2>
+                    <button class="btn btn--card btn--primary">Primary Dark</button>
+                </div>
+
+                <div class="card card--color card--color-blue">
+                    <h2 class="card__color-title">#3f72af</h2>
+                    <p class="card__color-desc">Used for primary buttons, core functionality entry points, and title emphasis.</p>
+                </div>
+
+                <div class="card card--color card--color-light">
+                    <h2 class="card__color-title">#e2e8f0</h2>
+                    <p class="card__color-desc">Upgraded light gray-blue. Used for card backgrounds and modal backgrounds.</p>
+                </div>
+
+                <!-- 图标卡片 -->
+                <div class="card card--icon">
+                    <div class="card__icon-wrapper card__icon-wrapper--blue">
+                        <span>📘</span>
+                    </div>
+                    <h3 class="card__title">Course Analysis</h3>
+                    <p class="card__desc">Data visualization for learning trace</p>
+                </div>
+
+                <div class="card card--icon">
+                    <div class="card__icon-wrapper card__icon-wrapper--purple">
+                        <span>📄</span>
+                    </div>
+                    <h3 class="card__title">Immersive Test</h3>
+                    <p class="card__desc">Deep focus learning environment</p>
+                </div>
+
+                <!-- 列表卡片 -->
+                <div class="card card--list">
+                    <h2 class="card__accent-title">#a78bfa</h2>
+                    <p class="card__accent-desc">Accent purple, used for highlights, progress bars, and selected states to add a touch of light luxury.</p>
+
+                    <div class="list-item">
+                        <div class="list-item__left">
+                            <div class="circle-icon"></div>
+                            <span class="list-item__text">Weakness Map</span>
+                        </div>
+                        <span class="list-item__arrow">⌄</span>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item__left">
+                            <div class="circle-icon circle-icon--purple"></div>
+                            <span class="list-item__text">Data Reports</span>
+                        </div>
+                        <span class="list-item__arrow">⌄</span>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span class="progress-label">Learning Progress</span>
+                            <span class="progress-value">75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn--card btn--primary">Confirm Action</button>
+                </div>
+
+                <div class="card card--icon">
+                    <div class="card__icon-wrapper">
+                        <span>💼</span>
+                    </div>
+                    <h3 class="card__title">Knowledge Base</h3>
+                    <p class="card__desc">Personal study material archive</p>
+                </div>
+
+                <div class="card card--icon">
+                    <div class="card__icon-wrapper card__icon-wrapper--orange">
+                        <span>👤</span>
+                    </div>
+                    <h3 class="card__title">User Center</h3>
+                    <p class="card__desc">Account and settings management</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚容器 -->
+    <div id="footer-container"></div>
+
+    <!-- 动画样式（通知用） -->
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="src/config/app.config.js"></script>
+    <script src="src/scripts/utils/utils.js"></script>
+    <script src="src/scripts/core/DataStorage.js"></script>
+    <script src="src/scripts/core/ComponentLoader.js"></script>
+    <script src="src/scripts/modules/App.js"></script>
+    <script src="src/scripts/modules/AdminManager.js"></script>
+</body>
+</html>
