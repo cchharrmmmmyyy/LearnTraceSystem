@@ -462,25 +462,31 @@
 
 /* 响应式适配 */
 @media (max-width: 1024px) {
+    .analytic-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
     .reading-content-wrapper {
-        flex-direction: column;
+        flex-direction: row;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height) - var(--reading-navbar-height));
     }
 
     .sidebar {
-        width: 100%;
+        width: var(--sidebar-width);
         height: auto;
-        max-height: 200px;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border-light);
+        max-height: none;
+        flex-shrink: 0;
     }
 
     .sidebar--collapsed {
-        width: 100%;
-        max-height: 0;
+        width: var(--sidebar-collapsed-width);
     }
 
     .reading-area {
-        padding: var(--spacing-lg);
+        flex: 1;
+        min-height: 400px;
     }
 
     .sentence {
