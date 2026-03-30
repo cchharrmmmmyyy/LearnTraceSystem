@@ -154,6 +154,21 @@ class ApiService {
         }
     }
 
+    async getDefaultArticle() {
+        if (!this.baseURL) {
+            console.warn('[ApiService] 未配置后端API地址');
+            return null;
+        }
+
+        try {
+            const response = await this.get(this.getFullUrl('/api/articles/default'));
+            return response;
+        } catch (error) {
+            console.error('[ApiService] 获取默认文章失败:', error);
+            return null;
+        }
+    }
+
     async deleteHoverData(sessionId) {
         if (!this.baseURL) {
             console.warn('[ApiService] 未配置后端API地址');

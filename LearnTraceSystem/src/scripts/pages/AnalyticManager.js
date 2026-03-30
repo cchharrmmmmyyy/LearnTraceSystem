@@ -6,7 +6,8 @@
 
 class AnalyticManager {
     constructor() {
-        this.sentences = AppConfig.texts.analytic.sentences;
+        this.sentences = [];
+        this.defaultSentences = AppConfig.texts.analytic.sentences;
         this.paragraphIndex = 1;
         this.currentSentenceIndex = 0;
         this.timerInterval = null;
@@ -18,7 +19,8 @@ class AnalyticManager {
     /**
      * 初始化
      */
-    init() {
+    async init() {
+        await this.loadArticle();
         this.cacheElements();
         this.bindEvents();
         this.updateSentenceDisplay();
@@ -26,6 +28,25 @@ class AnalyticManager {
         this.updateTimerDisplay();
         this.renderCollectorState();
         console.log('[AnalyticManager] 阅读分析模块已初始化');
+    }
+
+    /**
+     * 加载文章
+     */
+    async loadArticle() {
+        try {
+            const response = await apiService.getDefaultArticle();
+            if (response && response.code === 200 && response.data) {
+                this.sentences = response.data;
+                console.log('[AnalyticManager] 已从后端加载文章，共 ' + this.sentences.length + ' 句');
+            } else {
+                this.sentences = this.defaultSentences;
+                console.log('[AnalyticManager] 使用默认文章');
+            }
+        } catch (error) {
+            console.warn('[AnalyticManager] 加载文章失败，使用默认文章:', error);
+            this.sentences = this.defaultSentences;
+        }
     }
 
     /**
