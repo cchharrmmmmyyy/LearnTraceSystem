@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTrace - 阅读行为分析</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📖 LearnTrace</h1>
+            <p class="subtitle">阅读行为追踪与分析系统</p>
+        </header>
+
+        <main class="main-content">
+            <div class="start-screen" id="start-screen">
+                <div class="start-content">
+                    <div class="icon">📚</div>
+                    <h2>开始阅读分析</h2>
+                    <p>系统将追踪您的阅读行为，生成详细的分析报告</p>
+                    <button class="btn btn-primary" id="start-btn">开始阅读</button>
+                </div>
+            </div>
+
+            <div class="reading-screen" id="reading-screen" style="display: none;">
+                <div class="sidebar">
+                    <div class="panel">
+                        <h3>📊 阅读状态</h3>
+                        <div class="timer">
+                            <span class="timer-label">阅读时长</span>
+                            <span class="timer-value" id="timer">00:00</span>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <span class="stat-label">采集记录</span>
+                                <span class="stat-value" id="record-count">0</span>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-secondary" id="end-btn">结束阅读</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-area">
+                    <div class="article-container">
+                        <h2 class="article-title">英语阅读练习</h2>
+                        <div class="article-content" id="article-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-screen" id="report-screen" style="display: none;">
+                <div class="report-container">
+                    <div class="report-header">
+                        <h2>📋 阅读行为分析报告</h2>
+                        <button class="btn btn-secondary" id="restart-btn">重新开始</button>
+                    </div>
+                    
+                    <div class="report-summary" id="report-summary"></div>
+                    <div class="report-details" id="report-details"></div>
+                    <div class="report-recommendations" id="report-recommendations"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
