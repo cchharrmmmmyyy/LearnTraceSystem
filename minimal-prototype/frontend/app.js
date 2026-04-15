@@ -6,11 +6,15 @@ const articleData = [
         sentences: [
             {
                 sentenceId: '1-1',
-                words: ['Reading', 'is', 'an', 'essential', 'skill', 'that', 'opens', 'doors', 'to', 'knowledge', 'and', 'understanding.']
+                words: ['The', 'importance', 'of', 'reading', 'cannot', 'be', 'overstated.']
             },
             {
                 sentenceId: '1-2',
-                words: ['It', 'allows', 'us', 'to', 'explore', 'new', 'ideas', 'and', 'gain', 'insights', 'from', 'different', 'perspectives.']
+                words: ['It', 'is', 'through', 'reading', 'that', 'we', 'gain', 'knowledge', 'and', 'broaden', 'our', 'horizons.']
+            },
+            {
+                sentenceId: '1-3',
+                words: ['Every', 'book', 'we', 'read', 'opens', 'up', 'new', 'worlds', 'and', 'perspectives.']
             }
         ]
     },
@@ -19,11 +23,32 @@ const articleData = [
         sentences: [
             {
                 sentenceId: '2-1',
-                words: ['Effective', 'reading', 'requires', 'focus', 'and', 'active', 'engagement', 'with', 'the', 'text.']
+                words: ['Reading', 'improves', 'our', 'vocabulary', 'and', 'communication', 'skills.']
             },
             {
                 sentenceId: '2-2',
-                words: ['By', 'paying', 'attention', 'to', 'keywords', 'and', 'main', 'ideas,', 'we', 'can', 'improve', 'our', 'comprehension', 'and', 'retention.']
+                words: ['It', 'enhances', 'our', 'critical', 'thinking', 'abilities', 'and', 'stimulates', 'our', 'imagination.']
+            },
+            {
+                sentenceId: '2-3',
+                words: ['Regular', 'reading', 'is', 'essential', 'for', 'continuous', 'learning', 'and', 'personal', 'growth.']
+            }
+        ]
+    },
+    {
+        paragraphId: 3,
+        sentences: [
+            {
+                sentenceId: '3-1',
+                words: ['In', 'today\'s', 'fast-paced', 'world,', 'finding', 'time', 'to', 'read', 'can', 'be', 'challenging.']
+            },
+            {
+                sentenceId: '3-2',
+                words: ['However,', 'even', 'small', 'amounts', 'of', 'daily', 'reading', 'can', 'have', 'a', 'significant', 'impact.']
+            },
+            {
+                sentenceId: '3-3',
+                words: ['Making', 'reading', 'a', 'habit', 'is', 'one', 'of', 'the', 'best', 'investments', 'we', 'can', 'make', 'in', 'ourselves.']
             }
         ]
     }
