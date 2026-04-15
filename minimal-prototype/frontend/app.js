@@ -212,7 +212,8 @@ class LocalAnalyzer {
                 cleaned_event_count: cleanedEvents.length,
                 raw_event_count: events.length
             },
-            recommendations: recommendations
+            recommendations: recommendations,
+            heatmap_data: wordDwell
         };
     }
 }
@@ -491,6 +492,58 @@ class UIManager {
                 ${recommendations.map(r => `<li>${r}</li>`).join('')}
             </ul>
         `;
+
+        // 渲染注意力热力图
+        this.renderHeatmap(report.heatmap_data);
+    }
+
+    renderHeatmap(heatmapData) {
+        const heatmapContainer = document.createElement('div');
+        heatmapContainer.className = 'heatmap-section';
+        heatmapContainer.innerHTML = `
+            <h3>🔥 注意力热力图</h3>
+            <div class="heatmap-container" id="heatmap-container"></div>
+        `;
+        document.getElementById('report-details').appendChild(heatmapContainer);
+
+        const heatmapElement = document.getElementById('heatmap-container');
+        heatmapElement.innerHTML = this.generateHeatmapHTML(heatmapData);
+    }
+
+    generateHeatmapHTML(heatmapData) {
+        const words = [];
+        for (const [wordId, duration] of Object.entries(heatmapData)) {
+            const wordParts = wordId.split('-');
+            const paraId = wordParts[0];
+            const sentId = wordParts[1];
+            const wordIdx = wordParts[2];
+            
+            // 找到对应的单词
+            for (const paragraph of articleData) {
+                if (paragraph.paragraphId == paraId) {
+                    for (const sentence of paragraph.sentences) {
+                        if (sentence.sentenceId == `${paraId}-${sentId}`) {
+                            if (sentence.words[wordIdx]) {
+                                const intensity = Math.min(Math.floor(duration / 500), 4); // 0-4
+                                words.push({
+                                    word: sentence.words[wordIdx],
+                                    duration: duration,
+                                    intensity: intensity
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let html = '<div class="heatmap-content">';
+        words.forEach(item => {
+            const intensityClass = `heatmap-word intensity-${item.intensity}`;
+            html += `<span class="${intensityClass}" title="${item.duration}ms">${item.word}</span> `;
+        });
+        html += '</div>';
+        return html;
     }
 
     restart() {
