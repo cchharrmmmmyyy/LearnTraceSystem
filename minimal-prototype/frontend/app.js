@@ -233,6 +233,16 @@ class UIManager {
     renderReport(report) {
         console.log('[UI] Rendering report:', report);
         
+        if (!report) {
+            this.reportSummary.innerHTML = `
+                <div class="summary-card" style="grid-column: 1 / -1;">
+                    <span class="summary-label">错误</span>
+                    <span class="summary-value">API 调用失败，请检查网络连接</span>
+                </div>
+            `;
+            return;
+        }
+        
         if (report.error) {
             this.reportSummary.innerHTML = `
                 <div class="summary-card" style="grid-column: 1 / -1;">
