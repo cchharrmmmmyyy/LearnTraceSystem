@@ -29,6 +29,169 @@ const articleData = [
     }
 ];
 
+// 本地分析算法
+class LocalAnalyzer {
+    static cleanData(events) {
+        // 过滤有效事件
+        return events.filter(event => {
+            const requiredFields = ['event_type', 'word_id', 'paragraph_id', 'sentence_id', 'start_time', 'duration'];
+            const hasAllFields = requiredFields.every(field => field in event);
+            const validDuration = event.duration >= 100 && event.duration <= 30000;
+            return hasAllFields && validDuration;
+        });
+    }
+
+    static calculateTotalReadingTime(events) {
+        if (!events.length) return 0;
+        const sorted = events.sort((a, b) => a.start_time - b.start_time);
+        const first = sorted[0].start_time;
+        const last = sorted[sorted.length - 1];
+        return (last.start_time + last.duration) - first;
+    }
+
+    static evaluateReadingEfficiency(totalTimeMs) {
+        if (totalTimeMs < 180000) return "high";
+        if (totalTimeMs < 600000) return "medium";
+        return "low";
+    }
+
+    static calculateSentenceDwellTimes(events) {
+        const dwell = {};
+        events.forEach(event => {
+            dwell[event.sentence_id] = (dwell[event.sentence_id] || 0) + event.duration;
+        });
+        return dwell;
+    }
+
+    static calculateParagraphDwellTimes(events) {
+        const dwell = {};
+        events.forEach(event => {
+            const paraId = event.paragraph_id.toString();
+            dwell[paraId] = (dwell[paraId] || 0) + event.duration;
+        });
+        return dwell;
+    }
+
+    static calculateWordDwellTimes(events) {
+        const dwell = {};
+        events.forEach(event => {
+            dwell[event.word_id] = (dwell[event.word_id] || 0) + event.duration;
+        });
+        return dwell;
+    }
+
+    static findMaxDwellSentence(sentenceDwell) {
+        if (Object.keys(sentenceDwell).length === 0) return null;
+        return Object.entries(sentenceDwell).reduce((a, b) => sentenceDwell[a] > sentenceDwell[b] ? a : b);
+    }
+
+    static buildReadingPath(events) {
+        const sorted = events.sort((a, b) => a.start_time - b.start_time);
+        const path = [];
+        let lastSentence = null;
+        sorted.forEach(event => {
+            if (event.sentence_id !== lastSentence) {
+                path.push(event.sentence_id);
+                lastSentence = event.sentence_id;
+            }
+        });
+        return path;
+    }
+
+    static countBackReads(readingPath) {
+        let count = 0;
+        for (let i = 1; i < readingPath.length; i++) {
+            const curr = readingPath[i];
+            const prev = readingPath[i-1];
+            if (this.compareSentenceIds(curr, prev) < 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    static compareSentenceIds(id1, id2) {
+        try {
+            const p1 = id1.split('-');
+            const p2 = id2.split('-');
+            const para1 = parseInt(p1[0]);
+            const sent1 = parseInt(p1[1]);
+            const para2 = parseInt(p2[0]);
+            const sent2 = parseInt(p2[1]);
+            if (para1 !== para2) return para1 - para2;
+            return sent1 - sent2;
+        } catch {
+            return 0;
+        }
+    }
+
+    static identifyReadingHabits(backReadCount) {
+        const habits = ["顺序阅读"];
+        if (backReadCount === 0) habits.push("阅读顺序正确");
+        return habits;
+    }
+
+    static identifyProblems(backReadCount, wordDwell, sentenceDwell) {
+        const problems = [];
+        if (backReadCount > 3) problems.push("频繁回读");
+        const avgWordsPerSentence = Object.keys(wordDwell).length / Math.max(Object.keys(sentenceDwell).length, 1);
+        if (avgWordsPerSentence > 8) problems.push("逐词阅读");
+        return problems;
+    }
+
+    static generateReport(events) {
+        const cleanedEvents = this.cleanData(events);
+        const totalTime = this.calculateTotalReadingTime(cleanedEvents);
+        const efficiency = this.evaluateReadingEfficiency(totalTime);
+        const sentenceDwell = this.calculateSentenceDwellTimes(cleanedEvents);
+        const paraDwell = this.calculateParagraphDwellTimes(cleanedEvents);
+        const wordDwell = this.calculateWordDwellTimes(cleanedEvents);
+        const maxDwellSentence = this.findMaxDwellSentence(sentenceDwell);
+        const readingPath = this.buildReadingPath(cleanedEvents);
+        const backReadCount = this.countBackReads(readingPath);
+        const habits = this.identifyReadingHabits(backReadCount);
+        const problems = this.identifyProblems(backReadCount, wordDwell, sentenceDwell);
+
+        const totalSeconds = Math.floor(totalTime / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const timeStr = `${minutes}分${seconds}秒`;
+
+        const efficiencyMap = { high: '高', medium: '中等', low: '低' };
+
+        const recommendations = [];
+        if (efficiency === 'high') recommendations.push("继续保持良好的阅读习惯");
+        else if (efficiency === 'medium') recommendations.push("尝试提高阅读速度，可以尝试意群阅读而非逐词阅读");
+        else recommendations.push("建议先理解文章结构，再深入细节阅读");
+        
+        if (problems.includes("频繁回读")) recommendations.push("减少回读次数，尝试向前阅读遇到不懂的地方先标记继续");
+        if (problems.includes("逐词阅读")) recommendations.push("练习意群阅读，一次看多个词而非单个词");
+
+        return {
+            summary: {
+                total_reading_time: timeStr,
+                reading_efficiency: efficiencyMap[efficiency],
+                event_count: cleanedEvents.length
+            },
+            detailed_analysis: {
+                total_reading_time_ms: totalTime,
+                sentence_dwell_times: sentenceDwell,
+                paragraph_dwell_times: paraDwell,
+                word_dwell_times: wordDwell,
+                back_read_count: backReadCount,
+                reading_path: readingPath,
+                max_dwell_sentence: maxDwellSentence,
+                reading_efficiency: efficiency,
+                reading_habits: habits,
+                identified_problems: problems,
+                cleaned_event_count: cleanedEvents.length,
+                raw_event_count: events.length
+            },
+            recommendations: recommendations
+        };
+    }
+}
+
 class DataCollector {
     constructor() {
         this.sessionId = null;
@@ -220,9 +383,8 @@ class UIManager {
         
         console.log('[UI] Ending reading, collected events:', events.length);
         
-        await this.apiService.collectData(sessionId, events);
-        
-        const report = await this.apiService.analyzeData(sessionId, events);
+        // 使用本地分析算法
+        const report = LocalAnalyzer.generateReport(events);
         
         this.readingScreen.style.display = 'none';
         this.reportScreen.style.display = 'block';
